@@ -107,10 +107,26 @@ function sshLogin {
 	fi
 
 	# 开始登录
-	echo -e "\n\n\033[32m==>\033[0m 正在登录【\033[32m${config[0]}\033[0m】，请稍等...\n"
+	echo -e "\n\n==> 正在登录【${config[0]}】，请稍等...\n"
 	sleep 1
-	$(which expect) $BASE_PATH/goto.ex ${config[0]} ${config[2]} $port $user $pwd
-	echo -e "\n\033[32m==>\033[0m 您已退出【\033[32m${config[0]}\033[0m】\n"
+	expect -c "
+	    spawn ssh $user@${config[2]} -p $port
+	    expect {
+	        \"*assword\" {set timeout 6000; send \"$pwd\n\"; exp_continue ; sleep 3; }
+	        \"yes/no\" {send \"yes\n\"; exp_continue;}
+	        \"Last*\" {  send_user \"\n已经成功登录【${config[0]}】\n\";}
+	    }
+	    if {\"${config[5]}\" != \"\"} {
+			expect \"*]#\"
+			send \"${config[5]}\r\"
+		}
+		interact"
+	echo -e "\n==> 您已退出【${config[0]}】\n"
+	
+	#echo -e "\n\n\033[32m==>\033[0m 正在登录【\033[32m${config[0]}\033[0m】，请稍等...\n"
+	#sleep 1
+	#$(which expect) $BASE_PATH/goto.ex ${config[0]} ${config[2]} $port $user $pwd
+	#echo -e "\n\033[32m==>\033[0m 您已退出【\033[32m${config[0]}\033[0m】\n"
 }
 
 # 执行初始化
