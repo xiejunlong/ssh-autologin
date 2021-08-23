@@ -100,10 +100,16 @@ function sshLogin {
 		port="22"
 	fi
 
+	# 默认密码
+	local pwd=${config[4]}
+	if [[ $pwd == "" ]]; then
+		pwd="123456"
+	fi
+
 	# 开始登录
 	echo -e "\n\n\033[32m==>\033[0m 正在登录【\033[32m${config[0]}\033[0m】，请稍等...\n"
 	sleep 1
-	$(which expect) $BASE_PATH/goto.ex ${config[0]} ${config[2]} $port $user ${config[4]}
+	$(which expect) $BASE_PATH/goto.ex ${config[0]} ${config[2]} $port $user $pwd
 	echo -e "\n\033[32m==>\033[0m 您已退出【\033[32m${config[0]}\033[0m】\n"
 }
 
