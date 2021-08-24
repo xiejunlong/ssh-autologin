@@ -8,7 +8,7 @@ SSH 自动登录脚本
 ### 2. 如何使用当前脚本
 
 
-1. `git clone https://github.com/whorusq/shell-ssh-autologin.git`
+1. `git clone https://github.com/xiejunlong/ssh-autologin.git
 2. `cd shell-ssh-autologin`
 3. 修改 goto.conf ，追加服务器列表
 4. 赋予脚本可执行权限 `sudo chmod u+x goto.sh goto.ex`
