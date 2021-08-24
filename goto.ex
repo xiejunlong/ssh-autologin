@@ -15,7 +15,7 @@ expect {
     "*assword" { send "$PASSWORD\r\n"; exp_continue ; sleep 3; }
     "yes/no" { send \"yes\n\"; exp_continue; }
     "Last*" {
-        puts "\n$USER_NAME登录$SERVER_NAME成功\n";
+        puts "\n\[$USER_NAME\]登录\[$SERVER_NAME\]成功\n";
 #        send "PROMPT_COMMAND='echo -ne \"\\033]0;$SERVER_NAME \\007\"' \r";
         send -- "clear\r";
     }
@@ -23,7 +23,7 @@ expect {
 }
 
 if { "$SUDO_ROOT" == 1 } {
-    puts "$USER_NAME 正在 sudo -i\n"
+    puts "\[$USER_NAME\] 正在 sudo -i\n"
     expect "${USER_NAME}@"
     send "sudo -i\n"
     expect "${USER_NAME}:"
@@ -33,7 +33,7 @@ if { "$SUDO_ROOT" == 1 } {
 }
 
 if { "$COMMAND" != "" } {
-    send "$COMMAND\r"
+    send -- "$COMMAND\r"
 }
 
 # 登录后要运行的其他命令
