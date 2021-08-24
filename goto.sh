@@ -107,11 +107,11 @@ function sshLogin {
 		pwd="123456"
 	fi
 
-    	# 默认切换到root
-    	local sudo_root=${config[5]}
-    	if [[ $sudo_root == "" ]]; then
-        	sudo_root="1"
-    	fi
+	# 默认切换到root
+	local sudo_root=${config[5]}
+	if [[ $sudo_root == "" ]]; then
+		sudo_root="1"
+	fi
 
 	# 开始登录
 	echo -e "\n\n\033[32m==>\033[0m 正在登录【\033[32m${config[0]}\033[0m】，请稍等...\n"
